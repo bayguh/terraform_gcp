@@ -93,6 +93,16 @@ module "target_tcp_proxy_mail" {
   }
 }
 
+# internal address dev
+module "internal_address_mail_dev" {
+  source = "../../modules/internal_address"
+
+  internal_address_variables {
+    name       = "mail-dev-address"
+    subnetwork = "${data.google_compute_subnetwork.dev.self_link}"
+  }
+}
+
 # forwarding_rule_internal dev
 module "forwarding_rule_internal_mail_dev" {
   source = "../../modules/forwarding_rule_internal"
@@ -100,12 +110,23 @@ module "forwarding_rule_internal_mail_dev" {
   forwarding_rule_internal_variables {
     name            = "mail-dev-fr"
     backend_service = "${module.backend_service_mail.region_backend_service_link}"
+    ip_address      = "${module.internal_address_mail_dev.internal_address}"
     ip_protocol     = "${var.forwarding_rule_internal_mail_settings["ip_protocol"]}"
     network         = "${data.google_compute_network.network.self_link}"
     subnetwork      = "${data.google_compute_subnetwork.dev.self_link}"
   }
 
   forwarding_rule_ports = "${var.forwarding_rule_ports}"
+}
+
+# internal address stg
+module "internal_address_mail_stg" {
+  source = "../../modules/internal_address"
+
+  internal_address_variables {
+    name       = "mail-stg-address"
+    subnetwork = "${data.google_compute_subnetwork.stg.self_link}"
+  }
 }
 
 # forwarding_rule_internal stg
@@ -115,12 +136,23 @@ module "forwarding_rule_internal_mail_stg" {
   forwarding_rule_internal_variables {
     name            = "mail-stg-fr"
     backend_service = "${module.backend_service_mail.region_backend_service_link}"
+    ip_address      = "${module.internal_address_mail_stg.internal_address}"
     ip_protocol     = "${var.forwarding_rule_internal_mail_settings["ip_protocol"]}"
     network         = "${data.google_compute_network.network.self_link}"
     subnetwork      = "${data.google_compute_subnetwork.stg.self_link}"
   }
 
   forwarding_rule_ports = "${var.forwarding_rule_ports}"
+}
+
+# internal address prd
+module "internal_address_mail_prd" {
+  source = "../../modules/internal_address"
+
+  internal_address_variables {
+    name       = "mail-prd-address"
+    subnetwork = "${data.google_compute_subnetwork.prd.self_link}"
+  }
 }
 
 # forwarding_rule_internal prd
@@ -130,6 +162,7 @@ module "forwarding_rule_internal_mail_prd" {
   forwarding_rule_internal_variables {
     name            = "mail-prd-fr"
     backend_service = "${module.backend_service_mail.region_backend_service_link}"
+    ip_address      = "${module.forwarding_rule_internal_mail_prd.internal_address}"
     ip_protocol     = "${var.forwarding_rule_internal_mail_settings["ip_protocol"]}"
     network         = "${data.google_compute_network.network.self_link}"
     subnetwork      = "${data.google_compute_subnetwork.prd.self_link}"

@@ -4,6 +4,7 @@ variable "forwarding_rule_internal_variables" {
   default = {
     name            = ""
     backend_service = ""
+    ip_address      = ""
     ip_protocol     = ""
     network         = ""
     subnetwork      = ""
@@ -23,6 +24,7 @@ variable "forwarding_rule_ports" {
 resource "google_compute_forwarding_rule" "forwarding_rule_internal" {
   name                  = "${var.forwarding_rule_internal_variables["name"]}"
   backend_service       = "${var.forwarding_rule_internal_variables["backend_service"]}"
+  ip_address            = "${var.forwarding_rule_internal_variables["ip_address"]}"
   ip_protocol           = "${var.forwarding_rule_internal_variables["ip_protocol"]}"
   load_balancing_scheme = "INTERNAL"
   network               = "${var.forwarding_rule_internal_variables["network"]}"
