@@ -18,5 +18,5 @@ resource "google_compute_address" "internal_address" {
 }
 
 output "internal_address" {
-    value = "${google_compute_internal_address.internal_address.address}"
+    value = "${google_compute_address.internal_address.address}"
 }
