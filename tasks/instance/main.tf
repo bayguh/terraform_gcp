@@ -45,7 +45,7 @@ module "instance_ansible" {
   instance_add_static_ip_variables {
     count        = "${var.instance_ansible_settings["count"]}"
     machine_type = "${var.instance_ansible_settings["machine_type"]}"
-    name         = "${var.env == "prd" ? "ansible%04d" : "${var.env}-ansible%04d"}"
+    name         = "${var.env == "prd" ? "${var.project_name}-ansible%04d" : "${var.project_name}-${var.env}-ansible%04d"}"
     image        = "${var.instance_ansible_settings["image"]}"
     size         = "${var.instance_ansible_settings["size"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
@@ -64,7 +64,7 @@ module "instance_web" {
   instance_variables {
     count        = "${var.instance_web_settings["count"]}"
     machine_type = "${var.instance_web_settings["machine_type"]}"
-    name         = "${var.env == "prd" ? "web%04d" : "${var.env}-web%04d"}"
+    name         = "${var.env == "prd" ? "${var.project_name}-web%04d" : "${var.project_name}-${var.env}-web%04d"}"
     image        = "${var.instance_web_settings["image"]}"
     size         = "${var.instance_web_settings["size"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
@@ -83,7 +83,7 @@ module "instance_db" {
   instance_add_disk_variables {
     count                    = "${var.instance_db_settings["count"]}"
     machine_type             = "${var.instance_db_settings["machine_type"]}"
-    name                     = "${var.env == "prd" ? "db%04d" : "${var.env}-db%04d"}"
+    name                     = "${var.env == "prd" ? "${var.project_name}-db%04d" : "${var.project_name}-${var.env}-db%04d"}"
     image                    = "${var.instance_db_settings["image"]}"
     size                     = "${var.instance_db_settings["size"]}"
     subnetwork               = "${data.google_compute_subnetwork.subnetwork.self_link}"
@@ -108,7 +108,7 @@ module "instance_bastion" {
   instance_add_static_ip_variables {
     count        = "${var.instance_bastion_settings["count"]}"
     machine_type = "${var.instance_bastion_settings["machine_type"]}"
-    name         = "${var.env == "prd" ? "bastion%04d" : "${var.env}-bastion%04d"}"
+    name         = "${var.env == "prd" ? "${var.project_name}-bastion%04d" : "${var.project_name}-${var.env}-bastion%04d"}"
     image        = "${var.instance_bastion_settings["image"]}"
     size         = "${var.instance_bastion_settings["size"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
@@ -127,7 +127,7 @@ module "instance_consul" {
   instance_variables {
     count        = "${var.instance_consul_settings["count"]}"
     machine_type = "${var.instance_consul_settings["machine_type"]}"
-    name         = "${var.env == "prd" ? "consul%04d" : "${var.env}-consul%04d"}"
+    name         = "${var.env == "prd" ? "${var.project_name}-consul%04d" : "${var.project_name}-${var.env}-consul%04d"}"
     image        = "${var.instance_consul_settings["image"]}"
     size         = "${var.instance_consul_settings["size"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
