@@ -80,3 +80,14 @@ instance_consul_settings {
 }
 instance_consul_instance_tags = ["prd", "consul"]
 instance_consul_service_accounts = []
+
+// instance: haproxy設定
+instance_haproxy_settings {
+  count = 1
+  machine_type = "n1-standard-1"
+  image = "centos-6-v20171213"
+  size = 50
+  private_key = "../../keys/ssh/access_key"
+}
+instance_haproxy_instance_tags = ["prd", "haproxy", "consul"]
+instance_haproxy_service_accounts = []

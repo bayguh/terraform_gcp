@@ -22,6 +22,10 @@ variable "instance_consul_settings" { type = "map" }
 variable "instance_consul_instance_tags" { type = "list" }
 variable "instance_consul_service_accounts" { type = "list" }
 
+variable "instance_haproxy_settings" { type = "map" }
+variable "instance_haproxy_instance_tags" { type = "list" }
+variable "instance_haproxy_service_accounts" { type = "list" }
+
 /**
  * subnetwork取得
  * https://www.terraform.io/docs/providers/google/d/datasource_compute_subnetwork.html
@@ -137,4 +141,24 @@ module "instance_consul" {
   instance_zones   = "${var.zones}"
   instance_tags    = "${var.instance_consul_instance_tags}"
   service_accounts = "${concat(var.common_instance_service_accounts, var.instance_consul_service_accounts)}"
+}
+
+# haproxy
+module "instance_haproxy" {
+  source = "../../modules/instance_add_static_ip"
+
+  instance_add_static_ip_variables {
+    count             = "${var.instance_haproxy_settings["count"]}"
+    machine_type      = "${var.instance_haproxy_settings["machine_type"]}"
+    name              = "${var.env == "prd" ? "${var.project_name}-haproxy%04d" : "${var.project_name}-${var.env}-haproxy%04d"}"
+    image             = "${var.instance_haproxy_settings["image"]}"
+    size              = "${var.instance_haproxy_settings["size"]}"
+    network_interface = "${module.subnetwork.subnetwork_link}"
+    private_key       = "${var.instance_haproxy_settings["private_key"]}"
+    env               = "${var.env}"
+  }
+
+  instance_zones   = "${var.zones}"
+  instance_tags    = "${var.instance_haproxy_instance_tags}"
+  service_accounts = "${concat(var.common_instance_service_accounts, var.instance_haproxy_service_accounts)}"
 }
