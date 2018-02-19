@@ -7,6 +7,7 @@ variable "instance_add_static_ip_variables" {
     name         = ""
     image        = ""
     size         = ""
+    type         = ""
     subnetwork   = ""
     env          = ""
   }
@@ -60,6 +61,7 @@ resource "google_compute_instance" "instance" {
     initialize_params {
       image = "${var.instance_add_static_ip_variables["image"]}"
       size  = "${var.instance_add_static_ip_variables["size"]}"
+      type  = "${var.instance_add_static_ip_variables["type"]}"
     }
   }
 

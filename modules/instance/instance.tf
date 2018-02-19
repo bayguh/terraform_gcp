@@ -7,6 +7,7 @@ variable "instance_variables" {
     name         = ""
     image        = ""
     size         = ""
+    type         = ""
     subnetwork   = ""
     env          = ""
   }
@@ -47,6 +48,7 @@ resource "google_compute_instance" "instance" {
     initialize_params {
       image = "${var.instance_variables["image"]}"
       size  = "${var.instance_variables["size"]}"
+      type  = "${var.instance_variables["type"]}"
     }
   }
 

@@ -52,6 +52,7 @@ module "instance_ansible" {
     name         = "${var.env == "prd" ? "${var.project_name}-ansible%04d" : "${var.project_name}-${var.env}-ansible%04d"}"
     image        = "${var.instance_ansible_settings["image"]}"
     size         = "${var.instance_ansible_settings["size"]}"
+    type         = "${var.instance_ansible_settings["type"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
     env          = "${var.env}"
   }
@@ -71,6 +72,7 @@ module "instance_web" {
     name         = "${var.env == "prd" ? "${var.project_name}-web%04d" : "${var.project_name}-${var.env}-web%04d"}"
     image        = "${var.instance_web_settings["image"]}"
     size         = "${var.instance_web_settings["size"]}"
+    type         = "${var.instance_web_settings["type"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
     env          = "${var.env}"
   }
@@ -90,6 +92,7 @@ module "instance_db" {
     name                     = "${var.env == "prd" ? "${var.project_name}-db%04d" : "${var.project_name}-${var.env}-db%04d"}"
     image                    = "${var.instance_db_settings["image"]}"
     size                     = "${var.instance_db_settings["size"]}"
+    type                     = "${var.instance_db_settings["type"]}"
     subnetwork               = "${data.google_compute_subnetwork.subnetwork.self_link}"
     add_disk_name            = "${var.env == "prd" ? "db-data%04d" : "${var.env}-db-data%04d"}"
     add_disk_size            = "${var.instance_db_settings["add_disk_size"]}"
@@ -115,6 +118,7 @@ module "instance_bastion" {
     name         = "${var.env == "prd" ? "${var.project_name}-bastion%04d" : "${var.project_name}-${var.env}-bastion%04d"}"
     image        = "${var.instance_bastion_settings["image"]}"
     size         = "${var.instance_bastion_settings["size"]}"
+    type         = "${var.instance_bastion_settings["type"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
     env          = "${var.env}"
   }
@@ -134,6 +138,7 @@ module "instance_consul" {
     name         = "${var.env == "prd" ? "${var.project_name}-consul%04d" : "${var.project_name}-${var.env}-consul%04d"}"
     image        = "${var.instance_consul_settings["image"]}"
     size         = "${var.instance_consul_settings["size"]}"
+    type         = "${var.instance_consul_settings["type"]}"
     subnetwork   = "${data.google_compute_subnetwork.subnetwork.self_link}"
     env          = "${var.env}"
   }
@@ -153,6 +158,7 @@ module "instance_haproxy" {
     name              = "${var.env == "prd" ? "${var.project_name}-haproxy%04d" : "${var.project_name}-${var.env}-haproxy%04d"}"
     image             = "${var.instance_haproxy_settings["image"]}"
     size              = "${var.instance_haproxy_settings["size"]}"
+    type              = "${var.instance_haproxy_settings["type"]}"
     network_interface = "${module.subnetwork.subnetwork_link}"
     private_key       = "${var.instance_haproxy_settings["private_key"]}"
     env               = "${var.env}"

@@ -22,6 +22,7 @@ instance_ansible_settings {
   machine_type = "n1-standard-1"
   image        = "centos-6-v20171018"
   size         = 10
+  type         = "pd-standard"
 }
 instance_ansible_instance_tags = ["prd", "ansible", "consul"]
 instance_ansible_service_accounts = []
@@ -32,6 +33,7 @@ instance_web_settings {
   machine_type = "n1-standard-1"
   image        = "centos-6-v20171018"
   size         = 100
+  type         = "pd-standard"
 }
 instance_web_instance_tags = ["prd", "web", "consul"]
 instance_web_service_accounts = [
@@ -47,6 +49,7 @@ instance_db_settings {
   machine_type             = "n1-standard-1"
   image                    = "centos-6-v20171018"
   size                     = 20
+  type                     = "pd-standard"
   add_disk_size            = "100"
   add_disk_type            = "pd-ssd"
   private_key              = "../../keys/ssh/access_key"
@@ -62,6 +65,7 @@ instance_bastion_settings {
   machine_type = "f1-micro"
   image        = "centos-6-v20171018"
   size         = 10
+  type         = "pd-standard"
 }
 instance_bastion_instance_tags = ["prd", "bastion", "consul"]
 instance_bastion_service_accounts = [
@@ -77,6 +81,7 @@ instance_consul_settings {
   machine_type = "g1-small"
   image        = "centos-6-v20171018"
   size         = 10
+  type         = "pd-standard"
 }
 instance_consul_instance_tags = ["prd", "consul"]
 instance_consul_service_accounts = []
@@ -87,6 +92,7 @@ instance_haproxy_settings {
   machine_type = "n1-standard-1"
   image = "centos-6-v20171213"
   size = 50
+  type         = "pd-standard"
   private_key = "../../keys/ssh/access_key"
 }
 instance_haproxy_instance_tags = ["prd", "haproxy", "consul"]

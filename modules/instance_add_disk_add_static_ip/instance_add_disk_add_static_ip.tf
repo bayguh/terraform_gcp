@@ -7,6 +7,7 @@ variable "instance_add_disk_add_static_ip_variables" {
     name                     = ""
     image                    = ""
     size                     = ""
+    type                     = ""
     subnetwork               = ""
     add_disk_name            = ""
     add_disk_size            = ""
@@ -78,6 +79,7 @@ resource "google_compute_instance" "instance" {
     initialize_params {
       image = "${var.instance_add_disk_add_static_ip_variables["image"]}"
       size  = "${var.instance_add_disk_add_static_ip_variables["size"]}"
+      type  = "${var.instance_add_disk_add_static_ip_variables["type"]}"
     }
   }
 
